@@ -3,469 +3,259 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Cafe Pizza & Burger</title>
+  <meta name="theme-color" content="#ffffff">
+  <title>ForYou Cafe - Coming Soon</title>
   <style>
-    /* reset & base */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
-    body {
-      background: #1a0e07;  /* deep coffee bean */
-      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-      height: 100vh;
-      width: 100vw;
+    html, body {
+      height: 100%;
+      width: 100%;
       overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.3s ease;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: #ffffff;
+      color: #1a1a1a;
     }
 
-    /* main container – full screen, holds splash and error */
+    /* ===== FULL-SCREEN APP FRAME ===== */
     .app-screen {
       position: relative;
       width: 100%;
-      height: 100%;
-      max-width: 480px;  /* mobile app feel on larger screens */
+      height: 100vh;
+      height: 100dvh;
+      max-width: 480px;
       margin: 0 auto;
-      background: radial-gradient(circle at 30% 20%, #2e1a0e, #0f0702);
-      box-shadow: 0 0 40px rgba(0, 0, 0, 0.7);
-      border-radius: 36px; /* soft mobile screen corners */
-      overflow: hidden;
+      background: #ffffff;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-
-    /* ===== SPLASH (logo + name) ===== */
-    .splash {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      padding: 2rem;
-      transition: opacity 0.5s ease, transform 0.5s ease;
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    .splash.hidden {
-      opacity: 0;
-      transform: scale(0.95);
-      pointer-events: none;
-    }
-
-    /* logo wrapper */
-    .logo-container {
-      position: relative;
-      width: 150px;
-      height: 150px;
-      margin-bottom: 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: logoFloat 3s infinite ease-in-out;
-    }
-
-    /* actual logo image */
-    .logo-container img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      border-radius: 36% 64% 36% 64% / 64% 36% 64% 36%; /* organic blob, like a stone oven */
-      box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.6), 0 0 0 4px rgba(255, 215, 120, 0.15);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      animation: pulseGlow 2.5s infinite alternate;
-    }
-
-    /* floating and glow animations */
-    @keyframes logoFloat {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-8px); }
-      100% { transform: translateY(0px); }
-    }
-
-    @keyframes pulseGlow {
-      0% { box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.6), 0 0 0 4px rgba(255, 200, 80, 0.2); }
-      100% { box-shadow: 0 25px 35px -8px #b45f2a, 0 0 0 8px rgba(255, 220, 130, 0.3); }
-    }
-
-    /* Cafe name – big, warm, appetizing */
-    .cafe-name {
-      font-size: 2.6rem;
-      font-weight: 800;
-      letter-spacing: 2px;
+      padding: 2rem 1.5rem;
       text-align: center;
-      line-height: 1.2;
-      background: linear-gradient(135deg, #ffd966 0%, #f9b23f 40%, #e07c2c 80%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-shadow: 0 8px 20px rgba(224, 124, 44, 0.3);
-      margin-bottom: 0.5rem;
-      animation: nameReveal 0.9s ease-out both;
-      filter: drop-shadow(0 4px 6px #00000050);
+      overflow: hidden;
     }
 
-    .cafe-tagline {
-      font-size: 1rem;
-      font-weight: 400;
-      letter-spacing: 2px;
+    /* Decorative background circles */
+    .bg-circle {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 215, 0, 0.08) 0%, transparent 70%);
+      z-index: 0;
+    }
+    .bg-circle.top {
+      width: 300px;
+      height: 300px;
+      top: -100px;
+      right: -100px;
+    }
+    .bg-circle.bottom {
+      width: 400px;
+      height: 400px;
+      bottom: -150px;
+      left: -150px;
+    }
+
+    /* ===== MAIN CONTENT ===== */
+    .content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    /* Clean, professional logo container */
+    .logo-wrapper {
+      width: 170px;
+      height: 170px;
+      border-radius: 36px;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2.5rem;
+      border: 1.5px solid rgba(255, 215, 0, 0.5);
+      box-shadow: 0 15px 35px -10px rgba(255, 215, 0, 0.25);
+      animation: logoBreathe 4s ease-in-out infinite;
+    }
+
+    .logo-wrapper img {
+      width: 140px;
+      height: 140px;
+      object-fit: contain;
+    }
+
+    @keyframes logoBreathe {
+      0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 15px 35px -10px rgba(255, 215, 0, 0.25); }
+      50%      { transform: translateY(-6px) scale(1.02); box-shadow: 0 20px 40px -10px rgba(255, 215, 0, 0.4); }
+    }
+
+    /* Status Pill */
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fffdf0;
+      border: 1.5px solid #ffd700;
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
-      color: #e9c9a3;
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(4px);
-      padding: 0.55rem 1.4rem;
-      border-radius: 60px;
-      border: 1px solid rgba(255, 200, 100, 0.25);
-      margin-top: 0.75rem;
-      animation: taglineFade 1.1s ease 0.2s both;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      color: #b8860b;
+      margin-bottom: 1.5rem;
+      animation: fadeInUp 0.8s ease 0.2s both;
     }
 
-    @keyframes nameReveal {
-      0% { opacity: 0; transform: translateY(18px) scale(0.92); }
-      100% { opacity: 1; transform: translateY(0) scale(1); }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: #ffd700;
+      border-radius: 50%;
+      box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7);
+      animation: pulseDot 2s infinite;
     }
 
-    @keyframes taglineFade {
-      0% { opacity: 0; transform: translateY(12px); }
+    @keyframes pulseDot {
+      0%   { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); }
+      70%  { box-shadow: 0 0 0 8px rgba(255, 215, 0, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+    }
+
+    /* Main Text */
+    .title {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #111111;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      animation: fadeInUp 0.8s ease 0.35s both;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #666666;
+      line-height: 1.6;
+      max-width: 320px;
+      margin-bottom: 2.5rem;
+      animation: fadeInUp 0.8s ease 0.5s both;
+    }
+
+    .subtitle strong {
+      color: #b8860b;
+      font-weight: 700;
+    }
+
+    /* Divider Line */
+    .divider {
+      width: 60px;
+      height: 3px;
+      background: #ffd700;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+      animation: fadeInUp 0.8s ease 0.6s both;
+    }
+
+    /* Footer Info */
+    .footer-info {
+      position: absolute;
+      bottom: 30px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      animation: fadeInUp 0.8s ease 1s both;
+    }
+
+    .footer-info p {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      color: #bbbbbb;
+      text-transform: uppercase;
+    }
+
+    @keyframes fadeInUp {
+      0%   { opacity: 0; transform: translateY(20px); }
       100% { opacity: 1; transform: translateY(0); }
     }
 
-    /* subtle loading indicator (optional, adds polish) */
+    /* Small loader animation at the bottom of text */
     .loader-dots {
-      margin-top: 3rem;
       display: flex;
-      gap: 10px;
+      gap: 6px;
       justify-content: center;
-      opacity: 0.8;
+      margin-bottom: 3rem;
+      animation: fadeInUp 0.8s ease 0.7s both;
     }
 
     .loader-dots span {
-      width: 10px;
-      height: 10px;
-      background: #f9b23f;
+      width: 6px;
+      height: 6px;
+      background: #ffd700;
       border-radius: 50%;
-      display: inline-block;
-      animation: dotBounce 1.4s infinite ease-in-out both;
+      animation: dotPulse 1.4s infinite ease-in-out both;
     }
 
     .loader-dots span:nth-child(1) { animation-delay: -0.32s; }
     .loader-dots span:nth-child(2) { animation-delay: -0.16s; }
     .loader-dots span:nth-child(3) { animation-delay: 0s; }
 
-    @keyframes dotBounce {
-      0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
-      40% { transform: scale(1.2); opacity: 1; background: #ffd966; }
+    @keyframes dotPulse {
+      0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+      40%           { opacity: 1; transform: scale(1.1); }
     }
 
-    /* ===== ERROR SCREEN (network error) ===== */
-    .error-screen {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at 40% 30%, #2a1a10, #0d0603);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-      text-align: center;
-      opacity: 0;
-      transform: scale(1.05);
-      transition: opacity 0.4s ease, transform 0.4s ease;
-      pointer-events: none;
-      z-index: 20;
-      backdrop-filter: blur(2px);
-    }
-
-    .error-screen.visible {
-      opacity: 1;
-      transform: scale(1);
-      pointer-events: auto;
-    }
-
-    /* error icon */
-    .error-icon {
-      font-size: 5rem;
-      line-height: 1;
-      margin-bottom: 1.5rem;
-      filter: drop-shadow(0 10px 10px #00000055);
-      animation: errorShake 0.6s ease-out;
-    }
-
-    @keyframes errorShake {
-      0% { transform: rotate(0deg) scale(1); }
-      25% { transform: rotate(10deg) scale(1.1); }
-      50% { transform: rotate(-8deg) scale(1.1); }
-      75% { transform: rotate(4deg) scale(1.05); }
-      100% { transform: rotate(0deg) scale(1); }
-    }
-
-    .error-title {
-      font-size: 2rem;
-      font-weight: 700;
-      color: #f9d9b0;
-      margin-bottom: 0.8rem;
-      letter-spacing: 1px;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
-    }
-
-    .error-message {
-      font-size: 1rem;
-      color: #cfb59a;
-      max-width: 280px;
-      margin-bottom: 2.5rem;
-      line-height: 1.5;
-      background: rgba(0, 0, 0, 0.25);
-      padding: 1rem 1.4rem;
-      border-radius: 40px;
-      border: 1px solid rgba(255, 180, 90, 0.2);
-    }
-
-    .retry-button {
-      background: linear-gradient(145deg, #f9b23f, #d97e2e);
-      border: none;
-      padding: 1rem 3rem;
-      border-radius: 60px;
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: #1f0e05;
-      letter-spacing: 1px;
-      box-shadow: 0 12px 20px -8px #7a3e12, 0 0 0 2px rgba(255, 210, 120, 0.3);
-      transition: all 0.2s ease;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      animation: buttonPulse 2s infinite;
-    }
-
-    .retry-button:active {
-      transform: scale(0.96);
-      box-shadow: 0 6px 12px -4px #7a3e12;
-    }
-
-    @keyframes buttonPulse {
-      0% { box-shadow: 0 12px 20px -8px #7a3e12, 0 0 0 0 rgba(249, 178, 63, 0.5); }
-      70% { box-shadow: 0 12px 20px -8px #7a3e12, 0 0 0 10px rgba(249, 178, 63, 0); }
-      100% { box-shadow: 0 12px 20px -8px #7a3e12, 0 0 0 0 rgba(249, 178, 63, 0); }
-    }
-
-    /* small note (for demo purposes) */
-    .note {
-      position: absolute;
-      bottom: 12px;
-      font-size: 0.7rem;
-      color: #5f4a35;
-      opacity: 0.5;
-      letter-spacing: 1px;
-    }
-
-    /* utility */
-    .hidden {
-      display: none !important;
-    }
   </style>
 </head>
 <body>
-  <div class="app-screen" id="appScreen">
-    <!-- SPLASH SCREEN (logo + name) -->
-    <div class="splash" id="splash">
-      <div class="logo-container">
-        <!-- your logo.png – will show if file exists, otherwise a fallback (but still attractive) -->
-        <img src="logo.png" alt="Cafe Logo" 
-             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Ccircle cx=\'50\' cy=\'50\' r=\'46\' fill=\'%23d97e2e\'/%3E%3Cpath d=\'M30 40 Q50 20 70 40 Q75 65 50 75 Q25 65 30 40\' fill=\'%23ffd966\'/%3E%3Ccircle cx=\'40\' cy=\'45\' r=\'5\' fill=\'%23b33e1a\'/%3E%3Ccircle cx=\'60\' cy=\'45\' r=\'5\' fill=\'%23b33e1a\'/%3E%3Cpath d=\'M45 55 Q50 65 55 55\' stroke=\'%23b33e1a\' stroke-width=\'4\' fill=\'none\' stroke-linecap=\'round\'/%3E%3C/svg%3E'">
-      </div>
-      <h1 class="cafe-name">PIZZA · BURGER</h1>
-      <div class="cafe-tagline">Cafe & Fast Food</div>
+
+  <div class="app-screen">
+    <!-- Decorative Background -->
+    <div class="bg-circle top"></div>
+    <div class="bg-circle bottom"></div>
+
+    <div class="content">
       
-      <!-- loading dots (aesthetic) -->
+      <!-- Logo -->
+      <div class="logo-wrapper">
+        <img src="4.png" alt="ForYou Cafe Logo"
+             onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%23ffd700%22/><circle cx=%2250%22 cy=%2250%22 r=%2230%22 fill=%22%23ffffff%22/><circle cx=%2240%22 cy=%2245%22 r=%225%22 fill=%22%23ffd700%22/><circle cx=%2260%22 cy=%2245%22 r=%225%22 fill=%22%23ffd700%22/><path d=%22M42 60 Q50 70 58 60%22 stroke=%22%23ffd700%22 stroke-width=%224%22 fill=%22none%22 stroke-linecap=%22round%22/></svg>'">
+      </div>
+
+      <!-- Status Badge -->
+      <div class="status-pill">
+        <span class="status-dot"></span>
+        Coming Soon
+      </div>
+
+      <!-- Main Text -->
+      <h1 class="title">We're Crafting<br>Something Delicious</h1>
+      
+      <p class="subtitle">
+        The <strong>ForYou Cafe</strong> app is currently in development. 
+        We are working hard to bring the best Pizza & Burgers right to your fingertips. 
+        Stay tuned!
+      </p>
+
+      <div class="divider"></div>
+
+      <!-- Loading Dots -->
       <div class="loader-dots">
         <span></span><span></span><span></span>
       </div>
+
     </div>
 
-    <!-- NETWORK ERROR SCREEN (hidden by default) -->
-    <div class="error-screen" id="errorScreen">
-      <div class="error-icon">📡</div>
-      <div class="error-title">Connection Lost</div>
-      <div class="error-message">
-        Oops! It seems you're offline.<br> Please check your internet and try again.
-      </div>
-      <button class="retry-button" id="retryBtn">
-        <span>⟳</span> Retry
-      </button>
+    <!-- Footer -->
+    <div class="footer-info">
+      <p>ForYou Cafe · Sadhoke</p>
     </div>
 
-    <!-- tiny note (demo usage) -->
-    <div class="note">loading your order ...</div>
   </div>
 
-  <script>
-    (function() {
-      // ============================================================
-      // CONFIGURATION: set your target URL here
-      // ============================================================
-      const TARGET_URL = "https://www.example-cafe.com"; // 👈 change to your cafe website/app url
-
-      // Elements
-      const splash = document.getElementById('splash');
-      const errorScreen = document.getElementById('errorScreen');
-      const appScreen = document.getElementById('appScreen');
-      const retryBtn = document.getElementById('retryBtn');
-
-      // State to avoid multiple redirects
-      let redirectStarted = false;
-
-      // ------------------------------------------------------------
-      // Helper: show the error screen (hide splash)
-      // ------------------------------------------------------------
-      function showError() {
-        if (redirectStarted) return;
-        splash.classList.add('hidden');
-        errorScreen.classList.add('visible');
-        console.log('⚠️ Network error / page unreachable. Showing error screen.');
-      }
-
-      // ------------------------------------------------------------
-      // Helper: hide error screen (show splash again) – used on retry
-      // ------------------------------------------------------------
-      function hideError() {
-        errorScreen.classList.remove('visible');
-        splash.classList.remove('hidden');
-      }
-
-      // ------------------------------------------------------------
-      // Core: check connectivity & reachability, then redirect
-      // ------------------------------------------------------------
-      async function attemptRedirect() {
-        // reset any previous error state
-        hideError();
-        redirectStarted = false;
-
-        // 1. Basic network connection check (navigator.onLine)
-        if (!navigator.onLine) {
-          console.warn('No internet connection (offline)');
-          showError();
-          return;
-        }
-
-        // 2. Try a HEAD (or GET) request to the target URL with a timeout
-        //    to verify the page is actually reachable.
-        try {
-          const controller = new AbortController();
-          const timeoutId = setTimeout(() => controller.abort(), 6000); // 6s timeout
-
-          // Use 'no-cors' just to check reachability; it won't throw on opaque responses,
-          // but we mainly care about network errors. We'll also check response.ok if possible.
-          // However, with no-cors we cannot see status. So we try 'cors' first, fallback to no-cors?
-          // Better: use fetch with mode:'cors' but it will fail if server doesn't allow CORS.
-          // Since we only need to know if the domain resolves and responds, a simple fetch with mode:'no-cors'
-          // will throw on network errors (like DNS fail, connection refused) but return opaque on success.
-          // That's good enough.
-          const response = await fetch(TARGET_URL, {
-            method: 'HEAD',      // light request
-            mode: 'no-cors',     // avoid CORS issues, we only need network presence
-            cache: 'no-store',
-            signal: controller.signal
-          });
-
-          clearTimeout(timeoutId);
-
-          // With no-cors, response.type is 'opaque' and status is 0, but no network error occurred.
-          // So we consider it reachable.
-          console.log('✅ Page seems reachable. Redirecting...');
-
-          // 3. Perform the actual redirect (same window)
-          redirectStarted = true;
-          // Small delay to show the beautiful animation before redirect
-          setTimeout(() => {
-            window.location.href = TARGET_URL;
-          }, 300);
-
-        } catch (err) {
-          // Distinguish abort (timeout) from network error
-          if (err.name === 'AbortError') {
-            console.warn('⏱️ Request timed out – page unreachable');
-          } else {
-            console.warn('🌐 Network error / page unreachable:', err.message);
-          }
-          showError();
-        }
-      }
-
-      // ------------------------------------------------------------
-      // Manual retry: user clicks retry button
-      // ------------------------------------------------------------
-      function handleRetry() {
-        hideError();
-        // small delay to make the transition smooth
-        setTimeout(() => {
-          attemptRedirect();
-        }, 200);
-      }
-
-      // ------------------------------------------------------------
-      // Online/offline event listeners: if we go offline while on splash,
-      // immediately show error (optional, improves UX)
-      // ------------------------------------------------------------
-      window.addEventListener('offline', () => {
-        if (!redirectStarted) {
-          showError();
-        }
-      });
-
-      // Also listen for online event – if error screen is visible, try again automatically?
-      // Might be intrusive; but we can offer automatic retry? We'll keep it manual to avoid loops.
-      // But we can give a hint: if online, enable retry? It's already enabled.
-
-      // ------------------------------------------------------------
-      // Startup: Attempt redirect after a short delay to show animation
-      // ------------------------------------------------------------
-      window.addEventListener('load', () => {
-        // Let the splash animation shine for a moment (800ms) before we start checking network
-        setTimeout(() => {
-          attemptRedirect();
-        }, 800);
-      });
-
-      // Attach retry button
-      retryBtn.addEventListener('click', handleRetry);
-
-      // Additionally, if the user clicks anywhere on the error screen (except button), no action.
-
-      // ------------------------------------------------------------
-      // Fallback: if after 10 seconds the redirect hasn't happened (still no error), 
-      // maybe show error? But our attemptRedirect has a 6s timeout, so it will show error.
-      // However, if fetch hangs due to some edge case, we add a safety timeout.
-      // ------------------------------------------------------------
-      // Not strictly needed, but let's be safe.
-      let safetyTimeout;
-      window.addEventListener('load', () => {
-        safetyTimeout = setTimeout(() => {
-          // if splash is still visible, no error shown, and we haven't redirected
-          if (!splash.classList.contains('hidden') && !redirectStarted) {
-            console.warn('Safety timeout: forcing network error screen');
-            showError();
-          }
-        }, 12000); // 12 seconds max
-      });
-
-      // Clear safety timeout if we redirect
-      const originalRedirect = window.location.href; // just a dummy to avoid lint warnings? 
-      // Actually we don't need to clear, but we can prevent if redirected.
-      // No problem.
-    })();
-  </script>
 </body>
 </html>
